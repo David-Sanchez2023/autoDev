@@ -19,11 +19,18 @@ export const Route = createFileRoute("/_dashboard-layout")({
           to: "/dashboard/listar-registros",
         },
       },
+      // {
+      //   icon: <Write />,
+      //   label: "Registros ById",
+      //   route: {
+      //     to: "/dashboard/listar-registros-by-id",
+      //   },
+      // },
       {
         icon: <Write />,
-        label: "Registros ById",
+        label: "Crear registros",
         route: {
-          to: "/dashboard/listar-registros-by-id",
+          to: "/dashboard/crear-registros",
         },
       },
     ];

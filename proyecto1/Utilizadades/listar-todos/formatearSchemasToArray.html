@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generar Columnas de Múltiples Tablas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #0f172a;
+      color: white;
+    }
+
+    textarea {
+      color: #0f172a;
+    }
+
+    .output {
+      margin-top: 20px;
+      background-color: #f4f4f4;
+      color: #0f172a;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      white-space: pre-wrap;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Generar Columnas de Varias Tablas Dinámicamente</h1>
+  <textarea id="codeInput" rows="10" cols="80" placeholder="Pega aquí los códigos de las tablas, separados por una línea en blanco entre cada uno"></textarea>
+  <br><br>
+  <button id="generateButton">Generar Columnas</button>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    // Función para convertir un nombre de tabla en snake_case a camelCase
+    function toCamelCase(str) {
+      return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase());
+    }
+
+    // Función para generar nombres de columnas en el formato "tabla.columna"
+    function generateColumnNamesFromCode(code) {
+      // Intentamos extraer las columnas de la estructura del código
+      const regex = /(\w+)\s*:\s*(bigint|varchar|int|timestamp)/g;
+      const matches = [...code.matchAll(regex)];
+
+      // Extraemos el nombre de la tabla y convertimos a camelCase
+      const tableNameMatch = code.match(/'(\w+)'/);
+      const tableName = tableNameMatch ? toCamelCase(tableNameMatch[1]) : 'tabla';
+
+      const columnNames = matches.map(match => `${tableName}.${match[1]}`);
+      
+      return columnNames;
+    }
+
+    // Evento de clic en el botón para generar las columnas
+    document.getElementById('generateButton').addEventListener('click', () => {
+      const codeInput = document.getElementById('codeInput').value;
+
+      if (codeInput) {
+        // Separamos el código por bloques de tablas usando doble salto de línea como delimitador
+        const codeBlocks = codeInput.trim().split(/\n\s*\n/);
+        
+        // Procesamos cada bloque de código y generamos las columnas
+        const allColumns = codeBlocks.map(block => {
+          const columnNames = generateColumnNamesFromCode(block);
+          return {
+            table: toCamelCase(block.match(/'(\w+)'/)[1]),  // Convertimos el nombre de la tabla a camelCase
+            columns: columnNames
+          };
+        });
+
+        // Mostrar el resultado en el formato JSON
+        document.getElementById('output').textContent = JSON.stringify(allColumns, null, 2);
+      } else {
+        document.getElementById('output').textContent = 'Por favor, pega el código de las tablas.';
+      }
+    });
+  </script>
+
+</body>
+</html>

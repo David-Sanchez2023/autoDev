@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Código</title>
+    <link rel="stylesheet" href="./style.css">
+
+    <!-- Highlight.js desde CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-dark.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <!-- Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>hljs.highlightAll();</script>
+
+</head>
+
+<body class="bg-[#0f172a]  font-bold w-full">
+
+    <div class="flex flex-col gap-4  w-full">
+        <h1 class="text-white text-2xl">Generar Estructura de Código</h1>
+
+        <!-- <section class="grid grid-cols-2 gap-4">
+            <div class="flex flex-col gap-1">
+                <label class="text-xl text-white" for="Nombre Funcion">Nombre Funcion</label>
+                <input type="text" id="functionName" name="functionName"
+                    class="p-2 focus-visible:outline-none rounded-lg text-[#005f7f]"
+                    placeholder="Ingrese el nombre de la funcion">
+            </div>
+    
+            <div class="flex flex-col gap-1">
+                <label class="text-xl text-white" for="Nombre Funcion">Nombre de la tabla</label>
+                <input type="text" id="tableName" name="tableName"
+                    class="p-2 focus-visible:outline-none rounded-lg text-[#005f7f]"
+                    placeholder="Seleccione la tabla">
+            </div>     
+        </section> -->
+
+        <div class="flex flex-col gap-1">
+            <label class="text-xl text-white" for="Nombre Funcion">Seleccione la tabla</label>
+            <input type="text" id="functionName" name="functionName"
+                class="p-2 focus-visible:outline-none rounded-lg text-[#005f7f]"
+                placeholder="Seleccione la tabla">
+        </div>
+
+        <div class="flex text-white gap-2">
+            <label for="">Agregar columnas</label>
+            <input type="checkbox" name="asd" id="">
+
+            <label for="">Agregar Joins</label>
+            <input type="checkbox" name="asd" id="">
+        </div>
+
+        <div class="flex flex-col gap-1">
+            <label class="text-xl text-white" for="Nombre Funcion">Columnas</label>
+            <input type="text" id="tableName" name="tableName"
+                class="p-2 focus-visible:outline-none rounded-lg text-[#005f7f]" placeholder="Selecciones las columnas">
+        </div>
+
+
+        <div class="flex flex-col gap-1">
+            <label class="text-xl text-white" for="Nombre Funcion">Joins</label>
+            <div class="flex w-full gap-4">
+                <button
+                    class="cursor-move shrink-0 size-10 flex items-center justify-center bg-gray-700 rounded-lg text-2xl text-white">::</button>
+                <select class="p-2 focus-visible:outline-none rounded-lg text-[#005f7f] w-full">
+                    <option value="">Seleccion el tipos de join</option>
+                    <option value="innerJoin">INNER JOIN</option>
+                    <option value="leftJoin">LEFT JOIN</option>
+                </select>
+                <input type="text" id="tableName" name="tableName"
+                    class="p-2 focus-visible:outline-none rounded-lg text-[#005f7f] w-full"
+                    placeholder="Seleccione la columnas">
+                <input type="text" id="tableName" name="tableName"
+                    class="p-2 focus-visible:outline-none rounded-lg text-[#005f7f] w-full"
+                    placeholder="Selecciones las columnas">
+                <button
+                    class="shrink-0 size-10 flex items-center justify-center bg-teal-700 rounded-lg text-2xl text-white">+</button>
+            </div>
+        </div>
+
+
+
+
+        <button id="btnGenerarCodigo" class="bg-blue-500 text-white p-2 mt-2  rounded-lg">Obtener Código</button>
+    </div>
+
+
+
+    <div id="mostrarCodigo" class="bg-gray-800 text-white rounded min-h-20 mt-4"></div>
+
+    <script type="module" src="./generate.js"></script>
+</body>
+
+
+
+</html>

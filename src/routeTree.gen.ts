@@ -15,6 +15,7 @@ import { Route as DashboardLayoutImport } from './routes/_dashboard-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardLayoutDashboardListarRegistrosIndexImport } from './routes/_dashboard-layout/dashboard/listar-registros/index'
 import { Route as DashboardLayoutDashboardListarRegistrosByIdIndexImport } from './routes/_dashboard-layout/dashboard/listar-registros-by-id/index'
+import { Route as DashboardLayoutDashboardCrearRegistrosIndexImport } from './routes/_dashboard-layout/dashboard/crear-registros/index'
 
 // Create/Update Routes
 
@@ -43,6 +44,13 @@ const DashboardLayoutDashboardListarRegistrosByIdIndexRoute =
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
+const DashboardLayoutDashboardCrearRegistrosIndexRoute =
+  DashboardLayoutDashboardCrearRegistrosIndexImport.update({
+    id: '/dashboard/crear-registros/',
+    path: '/dashboard/crear-registros/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -60,6 +68,13 @@ declare module '@tanstack/react-router' {
       fullPath: ''
       preLoaderRoute: typeof DashboardLayoutImport
       parentRoute: typeof rootRoute
+    }
+    '/_dashboard-layout/dashboard/crear-registros/': {
+      id: '/_dashboard-layout/dashboard/crear-registros/'
+      path: '/dashboard/crear-registros'
+      fullPath: '/dashboard/crear-registros'
+      preLoaderRoute: typeof DashboardLayoutDashboardCrearRegistrosIndexImport
+      parentRoute: typeof DashboardLayoutImport
     }
     '/_dashboard-layout/dashboard/listar-registros-by-id/': {
       id: '/_dashboard-layout/dashboard/listar-registros-by-id/'
@@ -81,11 +96,14 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface DashboardLayoutRouteChildren {
+  DashboardLayoutDashboardCrearRegistrosIndexRoute: typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
   DashboardLayoutDashboardListarRegistrosByIdIndexRoute: typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   DashboardLayoutDashboardListarRegistrosIndexRoute: typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
 
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
+  DashboardLayoutDashboardCrearRegistrosIndexRoute:
+    DashboardLayoutDashboardCrearRegistrosIndexRoute,
   DashboardLayoutDashboardListarRegistrosByIdIndexRoute:
     DashboardLayoutDashboardListarRegistrosByIdIndexRoute,
   DashboardLayoutDashboardListarRegistrosIndexRoute:
@@ -99,6 +117,7 @@ const DashboardLayoutRouteWithChildren = DashboardLayoutRoute._addFileChildren(
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof DashboardLayoutRouteWithChildren
+  '/dashboard/crear-registros': typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
   '/dashboard/listar-registros-by-id': typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   '/dashboard/listar-registros': typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
@@ -106,6 +125,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof DashboardLayoutRouteWithChildren
+  '/dashboard/crear-registros': typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
   '/dashboard/listar-registros-by-id': typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   '/dashboard/listar-registros': typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
@@ -114,6 +134,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_dashboard-layout': typeof DashboardLayoutRouteWithChildren
+  '/_dashboard-layout/dashboard/crear-registros/': typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
   '/_dashboard-layout/dashboard/listar-registros-by-id/': typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   '/_dashboard-layout/dashboard/listar-registros/': typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
@@ -123,18 +144,21 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
+    | '/dashboard/crear-registros'
     | '/dashboard/listar-registros-by-id'
     | '/dashboard/listar-registros'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
+    | '/dashboard/crear-registros'
     | '/dashboard/listar-registros-by-id'
     | '/dashboard/listar-registros'
   id:
     | '__root__'
     | '/'
     | '/_dashboard-layout'
+    | '/_dashboard-layout/dashboard/crear-registros/'
     | '/_dashboard-layout/dashboard/listar-registros-by-id/'
     | '/_dashboard-layout/dashboard/listar-registros/'
   fileRoutesById: FileRoutesById
@@ -170,9 +194,14 @@ export const routeTree = rootRoute
     "/_dashboard-layout": {
       "filePath": "_dashboard-layout.tsx",
       "children": [
+        "/_dashboard-layout/dashboard/crear-registros/",
         "/_dashboard-layout/dashboard/listar-registros-by-id/",
         "/_dashboard-layout/dashboard/listar-registros/"
       ]
+    },
+    "/_dashboard-layout/dashboard/crear-registros/": {
+      "filePath": "_dashboard-layout/dashboard/crear-registros/index.tsx",
+      "parent": "/_dashboard-layout"
     },
     "/_dashboard-layout/dashboard/listar-registros-by-id/": {
       "filePath": "_dashboard-layout/dashboard/listar-registros-by-id/index.tsx",
