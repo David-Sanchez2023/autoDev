@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@ingenieria-digital/medicatel-ui/components";
 
 // Components
 import { Form } from "@/components/ui/form";
-import {
-  ComboboxTable,
-  SelectColumnField,
-} from "@/features/listar-registros/components";
-import { LoaderSpinner } from "@/components";
+import { ComboboxTable } from "@/features/listar-registros/components";
+import { ComboboxMultipleField, LoaderSpinner } from "@/components";
 
 // Plantilla
 import { CrearRegistrosPlantilla } from "../plantillas-code";
@@ -22,6 +19,7 @@ import { formCrearRegistrosSchema } from "../schemas";
 
 // Utils
 import { defaultValuesCrearRegistros } from "../utils";
+import { TABLES } from "@/utils";
 
 export function FormCrearRegistros() {
   const form = useForm<FormValuesCrearRegistrosType>({
@@ -44,7 +42,7 @@ export function FormCrearRegistros() {
           className=" flex flex-col gap-4"
         >
           <ComboboxTable />
-          <SelectColumnField name="columnas" />
+          <ComboboxFieldColumnas />
 
           <div className="text-right">
             <Button
@@ -60,5 +58,29 @@ export function FormCrearRegistros() {
 
       {data && <CrearRegistrosPlantilla {...data} />}
     </div>
+  );
+}
+
+function ComboboxFieldColumnas() {
+  const form = useFormContext();
+
+  const tableName = form.watch("tabla");
+
+  const selectColumnas = TABLES.find((item) => item.table === tableName.value);
+
+  const data = selectColumnas?.columns.map((column) => {
+    return {
+      label: column,
+      value: column,
+    };
+  });
+  return (
+    <ComboboxMultipleField
+      name="columnas"
+      placeholder="Seleccione las columnas"
+      title="Columnas"
+      data={data || []}
+      disabled={!tableName?.value}
+    />
   );
 }

@@ -5,10 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 // Components
 import { Form } from "@/components/ui/form";
-import { LoaderSpinner } from "@/components";
+import { ComboboxMultipleField, LoaderSpinner } from "@/components";
 import { ComboboxTable } from "./combobox-table.component";
 import { JoinConsulta } from "./join-field.component";
-import { SelectColumnField } from "./combobox-multiple-columns.component";
 
 // Plantilla
 import { ListarRegistrosPlantilla } from "../plantillas-code";
@@ -21,6 +20,7 @@ import type { FormValuesListarRegistrosType } from "../types/listar-registros.ty
 
 // Utils
 import { defaultValuesListarRegistros } from "../utils";
+import { TABLES } from "@/utils";
 
 export function FormListarRegistros() {
   const form = useForm<FormValuesListarRegistrosType>({
@@ -42,7 +42,7 @@ export function FormListarRegistros() {
           onSubmit={form.handleSubmit(onSubmit)}
           className=" flex flex-col gap-4"
         >
-          <SelectColumnField name="columnas" />
+          <ComboboxFileldColumn />
           <ComboboxTable />
           <JoinConsulta />
           <div className="text-right">
@@ -59,5 +59,23 @@ export function FormListarRegistros() {
 
       {data && <ListarRegistrosPlantilla {...data} />}
     </div>
+  );
+}
+
+function ComboboxFileldColumn() {
+  const data = TABLES.flatMap((table) =>
+    table.columns.map((column) => ({
+      label: column,
+      value: column,
+    })),
+  );
+
+  return (
+    <ComboboxMultipleField
+      name="columnas"
+      placeholder="Seleccione las columnas"
+      title="Columnas"
+      data={data || []}
+    />
   );
 }
