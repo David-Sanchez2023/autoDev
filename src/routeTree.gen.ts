@@ -15,6 +15,7 @@ import { Route as DashboardLayoutImport } from './routes/_dashboard-layout'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardLayoutDashboardListarRegistrosIndexImport } from './routes/_dashboard-layout/dashboard/listar-registros/index'
 import { Route as DashboardLayoutDashboardListarRegistrosByIdIndexImport } from './routes/_dashboard-layout/dashboard/listar-registros-by-id/index'
+import { Route as DashboardLayoutDashboardGenerarDataIndexImport } from './routes/_dashboard-layout/dashboard/generar-data/index'
 import { Route as DashboardLayoutDashboardCrearRegistrosIndexImport } from './routes/_dashboard-layout/dashboard/crear-registros/index'
 
 // Create/Update Routes
@@ -41,6 +42,13 @@ const DashboardLayoutDashboardListarRegistrosByIdIndexRoute =
   DashboardLayoutDashboardListarRegistrosByIdIndexImport.update({
     id: '/dashboard/listar-registros-by-id/',
     path: '/dashboard/listar-registros-by-id/',
+    getParentRoute: () => DashboardLayoutRoute,
+  } as any)
+
+const DashboardLayoutDashboardGenerarDataIndexRoute =
+  DashboardLayoutDashboardGenerarDataIndexImport.update({
+    id: '/dashboard/generar-data/',
+    path: '/dashboard/generar-data/',
     getParentRoute: () => DashboardLayoutRoute,
   } as any)
 
@@ -76,6 +84,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLayoutDashboardCrearRegistrosIndexImport
       parentRoute: typeof DashboardLayoutImport
     }
+    '/_dashboard-layout/dashboard/generar-data/': {
+      id: '/_dashboard-layout/dashboard/generar-data/'
+      path: '/dashboard/generar-data'
+      fullPath: '/dashboard/generar-data'
+      preLoaderRoute: typeof DashboardLayoutDashboardGenerarDataIndexImport
+      parentRoute: typeof DashboardLayoutImport
+    }
     '/_dashboard-layout/dashboard/listar-registros-by-id/': {
       id: '/_dashboard-layout/dashboard/listar-registros-by-id/'
       path: '/dashboard/listar-registros-by-id'
@@ -97,6 +112,7 @@ declare module '@tanstack/react-router' {
 
 interface DashboardLayoutRouteChildren {
   DashboardLayoutDashboardCrearRegistrosIndexRoute: typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
+  DashboardLayoutDashboardGenerarDataIndexRoute: typeof DashboardLayoutDashboardGenerarDataIndexRoute
   DashboardLayoutDashboardListarRegistrosByIdIndexRoute: typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   DashboardLayoutDashboardListarRegistrosIndexRoute: typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
@@ -104,6 +120,8 @@ interface DashboardLayoutRouteChildren {
 const DashboardLayoutRouteChildren: DashboardLayoutRouteChildren = {
   DashboardLayoutDashboardCrearRegistrosIndexRoute:
     DashboardLayoutDashboardCrearRegistrosIndexRoute,
+  DashboardLayoutDashboardGenerarDataIndexRoute:
+    DashboardLayoutDashboardGenerarDataIndexRoute,
   DashboardLayoutDashboardListarRegistrosByIdIndexRoute:
     DashboardLayoutDashboardListarRegistrosByIdIndexRoute,
   DashboardLayoutDashboardListarRegistrosIndexRoute:
@@ -118,6 +136,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof DashboardLayoutRouteWithChildren
   '/dashboard/crear-registros': typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
+  '/dashboard/generar-data': typeof DashboardLayoutDashboardGenerarDataIndexRoute
   '/dashboard/listar-registros-by-id': typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   '/dashboard/listar-registros': typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
@@ -126,6 +145,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof DashboardLayoutRouteWithChildren
   '/dashboard/crear-registros': typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
+  '/dashboard/generar-data': typeof DashboardLayoutDashboardGenerarDataIndexRoute
   '/dashboard/listar-registros-by-id': typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   '/dashboard/listar-registros': typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
@@ -135,6 +155,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_dashboard-layout': typeof DashboardLayoutRouteWithChildren
   '/_dashboard-layout/dashboard/crear-registros/': typeof DashboardLayoutDashboardCrearRegistrosIndexRoute
+  '/_dashboard-layout/dashboard/generar-data/': typeof DashboardLayoutDashboardGenerarDataIndexRoute
   '/_dashboard-layout/dashboard/listar-registros-by-id/': typeof DashboardLayoutDashboardListarRegistrosByIdIndexRoute
   '/_dashboard-layout/dashboard/listar-registros/': typeof DashboardLayoutDashboardListarRegistrosIndexRoute
 }
@@ -145,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/dashboard/crear-registros'
+    | '/dashboard/generar-data'
     | '/dashboard/listar-registros-by-id'
     | '/dashboard/listar-registros'
   fileRoutesByTo: FileRoutesByTo
@@ -152,6 +174,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/dashboard/crear-registros'
+    | '/dashboard/generar-data'
     | '/dashboard/listar-registros-by-id'
     | '/dashboard/listar-registros'
   id:
@@ -159,6 +182,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_dashboard-layout'
     | '/_dashboard-layout/dashboard/crear-registros/'
+    | '/_dashboard-layout/dashboard/generar-data/'
     | '/_dashboard-layout/dashboard/listar-registros-by-id/'
     | '/_dashboard-layout/dashboard/listar-registros/'
   fileRoutesById: FileRoutesById
@@ -195,12 +219,17 @@ export const routeTree = rootRoute
       "filePath": "_dashboard-layout.tsx",
       "children": [
         "/_dashboard-layout/dashboard/crear-registros/",
+        "/_dashboard-layout/dashboard/generar-data/",
         "/_dashboard-layout/dashboard/listar-registros-by-id/",
         "/_dashboard-layout/dashboard/listar-registros/"
       ]
     },
     "/_dashboard-layout/dashboard/crear-registros/": {
       "filePath": "_dashboard-layout/dashboard/crear-registros/index.tsx",
+      "parent": "/_dashboard-layout"
+    },
+    "/_dashboard-layout/dashboard/generar-data/": {
+      "filePath": "_dashboard-layout/dashboard/generar-data/index.tsx",
       "parent": "/_dashboard-layout"
     },
     "/_dashboard-layout/dashboard/listar-registros-by-id/": {

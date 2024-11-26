@@ -33,6 +33,13 @@ export const Route = createFileRoute("/_dashboard-layout")({
           to: "/dashboard/crear-registros",
         },
       },
+      {
+        icon: <Write />,
+        label: "Generar data",
+        route: {
+          to: "/dashboard/generar-data",
+        },
+      },
     ];
 
     return { SIDEBAR_ITEMS };
